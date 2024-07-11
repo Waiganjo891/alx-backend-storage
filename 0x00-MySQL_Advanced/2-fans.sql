@@ -1,13 +1,13 @@
--- Use the appropriate database
-USE holberton;
+-- Create the table if it doesn't exist
+CREATE TABLE IF NOT EXISTS bands (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    origin VARCHAR(255),
+    fans INT
+);
 
--- Create the query to rank country origins by the number of fans
-SELECT
-    origin,
-    SUM(nb_fans) AS total_fans
-FROM
-    metal_bands
-GROUP BY
-    origin
-ORDER BY
-    total_fans DESC;
+-- Select the origins and sum of fans, then order by the total number of fans in descending order
+SELECT origin, SUM(fans) AS nb_fans
+FROM bands
+GROUP BY origin
+ORDER BY nb_fans DESC;
