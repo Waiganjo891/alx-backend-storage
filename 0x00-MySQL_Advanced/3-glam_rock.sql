@@ -1,4 +1,5 @@
 -- Calculate the lifespan of bands with 'Glam rock' as their main style
+USE holberton;
 SELECT 
     band_name,
     CASE
