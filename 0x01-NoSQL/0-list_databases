@@ -1,6 +1,4 @@
-#!/bin/bash
-
-# Connect to MongoDB and list all databases
-mongo <<EOF
-show dbs
-EOF
+// 0-list_databases.js
+db.adminCommand('listDatabases').databases.forEach(function(database) {
+    print(database.name + "\t" + database.sizeOnDisk / (1024 * 1024 * 1024) + "GB");
+});
