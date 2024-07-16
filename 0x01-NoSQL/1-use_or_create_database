@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Connect to MongoDB and switch to (or create) the database 'my_db'
+mongo <<EOF
+use my_db
+EOF
