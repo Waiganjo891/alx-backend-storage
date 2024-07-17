@@ -2,10 +2,26 @@
 """
 Cache module
 """
-
 import redis
 import uuid
 from typing import Union, Callable, Optional
+from functools import wraps
+
+
+def count_calls(method: Callable) -> Callable:
+    """
+    Decorator to count the number of calls to a method.
+    Args:
+        method (Callable): The method to be decorated.
+    Returns:
+        Callable: The wrapped method with call counting.
+    """
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        key = method.__qualname__
+        self._redis.incr(key)
+        return method(self, *args, **kwargs)
+    return wrapper
 
 
 class Cache:
@@ -82,7 +98,11 @@ if __name__ == "__main__":
         123: int,
         "bar": lambda d: d.decode("utf-8")
     }
-
     for value, fn in TEST_CASES.items():
         key = cache.store(value)
         assert cache.get(key, fn=fn) == value
+    cache.store(b"first")
+    print(cache.get(cache.store.__qualname__))
+    cache.store(b"second")
+    cache.store(b"third")
+    print(cache.get(cache.store.__qualname__))
