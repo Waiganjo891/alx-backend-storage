@@ -1,0 +1,4 @@
+// Delete all documents in the collection school
+db = connect("localhost:27017/" + db.getName());
+result = db.school.deleteMany({ name: "Holberton school" });
+printjson(result);
