@@ -1,0 +1,9 @@
+// Use the `mongo` shell with a script passed as a file
+print('Connecting to the database...');
+
+db = db.getSiblingDB('my_db');
+var cursor = db.school.find({name: "Holberton school"});
+while (cursor.hasNext()) {
+    printjson(cursor.next());
+}
+print('bye');
