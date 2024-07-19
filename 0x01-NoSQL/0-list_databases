@@ -1,4 +1,2 @@
-// 0-list_databases.js
-db.adminCommand('listDatabases').databases.forEach(function(database) {
-    print(database.name + "\t" + database.sizeOnDisk / (1024 * 1024 * 1024) + "GB");
-});
+// Show databases
+mongo --eval "db.adminCommand('listDatabases')"
